@@ -1,8 +1,8 @@
-// #![feature(abi_thiscall)]
+#![feature(abi_thiscall)]
 
 use anyhow::Result;
 use log4rs::{append::file::FileAppender, config::Appender, config::Root, Config};
-use std::ffi::c_void;
+use std::{ffi::c_void, time::Duration};
 
 use log::LevelFilter;
 use windows::Win32::{
@@ -22,6 +22,15 @@ unsafe fn submain<'a>() -> Result<()> {
 
     let weather = gta::weather();
     info!("Weather: {:?}", weather);
+
+    gta::request_model(19, 0);
+    info!("Requested model 19");
+
+    gta::load_all_requested_models(false);
+    info!("Loaded all requested models");
+
+    let ped = gta::new_civilian_ped(gta::PedType::CivFemale, 19);
+    info!("Created new civilian ped");
 
     // player.set_wanted_level(0);
     // client.set_weather(Weather::SunnyDesert);

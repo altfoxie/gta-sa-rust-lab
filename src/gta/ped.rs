@@ -96,3 +96,51 @@ pub fn find_player_ped(id: i32) -> CPlayerPed {
     let func: fn(i32) -> usize = unsafe { std::mem::transmute(ptr) };
     CPlayerPed::new(func(id))
 }
+
+pub enum PedType {
+    Player1,
+    Player2,
+    PlayerNetwork,
+    PlayerUnused,
+    CivMale,
+    CivFemale,
+    Cop,
+    Gang1,
+    Gang2,
+    Gang3,
+    Gang4,
+    Gang5,
+    Gang6,
+    Gang7,
+    Gang8,
+    Gang9,
+    Gang10,
+    Dealer,
+    Medic,
+    Fireman,
+    Criminal,
+    Bum,
+    Prostitute,
+    Special,
+    Mission1,
+    Mission2,
+    Mission3,
+    Mission4,
+    Mission5,
+    Mission6,
+    Mission7,
+    Mission8,
+}
+
+pub fn new_civilian_ped(pedType: PedType, modelIndex: u32) -> CPed {
+    let mut buf = [0u8; 0x79C];
+    let ptr = 0x5DDB70 as *const c_void;
+    let func: extern "thiscall" fn(*const c_void, u32, u32) -> usize =
+        unsafe { std::mem::transmute(ptr) };
+
+    CPed::new(func(
+        buf.as_mut_ptr() as *const c_void,
+        pedType as u32,
+        modelIndex,
+    ))
+}
