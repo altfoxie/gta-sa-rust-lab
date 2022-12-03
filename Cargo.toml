@@ -1,0 +1,28 @@
+[package]
+name = "gta-sa-rust-lab"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.66"
+dirs = "4.0.0"
+log = "0.4.17"
+log4rs = "1.2.0"
+strum = "0.24.1"
+strum_macros = "0.24.3"
+
+[dependencies.windows]
+version = "0.43.0"
+features = [
+    "Data_Xml_Dom",
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_System_Threading",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_System_LibraryLoader",
+    "Win32_System_SystemServices",
+    "Win32_System_Diagnostics_Debug",
+]
+
+[lib]
+crate-type = ["cdylib"]
